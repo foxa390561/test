@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Счетчик</title>
+    <title>Синхронизированный счетчик</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,19 +20,46 @@
             cursor: pointer;
         }
     </style>
+    <!-- Подключение Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js"></script>
 </head>
 <body>
     <div id="counter">0</div>
     <button id="incrementButton">+1</button>
 
     <script>
-        let count = 0;
-        const counterElement = document.getElementById('counter');
-        const button = document.getElementById('incrementButton');
+        // Ваша конфигурация Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyD9aj87BPNT7IVDuBKxMxq7TTxnrO9IpBo",
+            authDomain: "dsd3d-73721.firebaseapp.com",
+            projectId: "dsd3d-73721",
+            storageBucket: "dsd3d-73721.appspot.com",
+            messagingSenderId: "337268848385",
+            appId: "1:337268848385:web:9b8589c53faaa2b1b4cd00",
+            measurementId: "G-KM77V2L8JK"
+        };
 
-        button.addEventListener('click', () => {
-            count++;
-            counterElement.textContent = count;
+        // Инициализация Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const database = firebase.database();
+
+        // Получаем ссылку на счетчик в базе данных
+        const counterRef = database.ref('counter');
+
+        // Обновляем счетчик при загрузке страницы
+        counterRef.on('value', (snapshot) => {
+            const count = snapshot.val();
+            document.getElementById('counter').textContent = count || 0;
+        });
+
+        // Увеличиваем счетчик при нажатии на кнопку
+        document.getElementById('incrementButton').addEventListener('click', () => {
+            counterRef.transaction((currentCount) => {
+                return (currentCount || 0) + 1;
+            });
         });
     </script>
 </body>
