@@ -3,24 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Контейнер с iframe</title>
+    <title>Счетчик</title>
     <style>
-        #container {
-            width: 100%;
-            height: 600px; /* Вы можете изменить высоту по своему усмотрению */
-            border: 1px solid #ccc;
-            overflow: hidden;
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
         }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
+        #counter {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div id="container">
-        <iframe src="http://www.pandasecurity.com/" title="ВКонтакте"></iframe>
-    </div>
+    <div id="counter">0</div>
+    <button id="incrementButton">+1</button>
+
+    <script>
+        let count = 0;
+        const counterElement = document.getElementById('counter');
+        const button = document.getElementById('incrementButton');
+
+        button.addEventListener('click', () => {
+            count++;
+            counterElement.textContent = count;
+        });
+    </script>
 </body>
 </html>
