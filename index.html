@@ -3,10 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Моя страница на GitHub Pages</title>
+    <title>Контейнер с iframe</title>
+    <style>
+        #container {
+            width: 100%;
+            height: 600px; /* Вы можете изменить высоту по своему усмотрению */
+            border: 1px solid #ccc;
+            overflow: hidden;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>Добро пожаловать на мою страницу!</h1>
-    <p>Это пример страницы, созданной с помощью GitHub Pages.</p>
+    <div id="container">
+        <iframe src="https://vk.com" title="ВКонтакте"></iframe>
+    </div>
 </body>
 </html>
